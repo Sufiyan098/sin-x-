@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Shooting Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        #info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        #info img {
+            width: 150px;
+            height: auto;
+        }
+        #startMenu, #pauseMenu, #gameOverMenu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 40px;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        #startMenu button, #pauseMenu button, #gameOverMenu button {
+            padding: 10px 20px;
+            font-size: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 15px;
+            width: 200px;
+        }
+        #startMenu button:hover, #pauseMenu button:hover, #gameOverMenu button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        #startMenu button:active, #pauseMenu button:active, #gameOverMenu button:active {
+            transform: scale(0.95);
+        }
+        #finalScore, #highScore {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="info">
+        <h3 id="planetName">Planet: Earth</h3>
+        <img id="planetImage" src="" alt="Planet Image">
+        <p id="planetInfo"></p>
+    </div>
+    <div id="startMenu">
+        <h1>SINX Shooters</h1>
+        <button id="startButton">Start Game</button>
+    </div>
+    <div id="pauseMenu">
+        <h1>Game Paused</h1>
+        <button id="resumeButton">Resume Game</button>
+    </div>
+    <div id="gameOverMenu">
+        <h1>Game Over</h1>
+        <p id="finalScore"></p>
+        <p id="highScore"></p>
+        <button id="restartButton">Restart Game</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const shipImageUrl = 'https://e7.pngegg.com/pngimages/329/505/png-clipart-grey-and-red-fighting-jet-illustration-spacecraft-spaceship-file-miscellaneous-airplane.png';
+        const spaceshipImage = new Image();
+        spaceshipImage.src = shipImageUrl;
+
+        let spaceship = {
+            x: canvas.width / 2,
+            y: canvas.height - 50,
+            width: 50,
+            height: 50,
+            speed: 5,
+            dx: 0,
+            dy: 0,
+            draw() {
+                ctx.drawImage(spaceshipImage, this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
+            },
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+                if (this.x < 0) this.x = 0;
+                if (this.x > canvas.width - this.width) this.x = canvas.width - this.width;
+                if (this.y < 0) this.y = 0;
+                if (this.y > canvas.height - this.height) this.y = canvas.height - this.height;
+            }
+        };
+
+        let bullets = [];
+        let asteroids = [];
+        let score = 0;
+        let highScore = 0;
+        let level = 1;
+        let planetIndex = 0;
+        let gamePaused = false;
+        let gameOver = false;
+
+        let planets = [
+            { name: "Mercury", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mercury_in_true_color.jpg/640px-Mercury_in_true_color.jpg", info: "The closest planet to the Sun." },
+            { name: "Venus", image: "https://science.nasa.gov/wp-content/uploads/2023/05/venus-mariner-10-pia23791-1920x640-1.jpg?w=1920", info: "The second planet from the Sun, known for its thick atmosphere." },
+            { name: "Earth", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr-zutBH2nG3LcwB05oSuchJrTcfu44JEgzw&s", info: "Home to humans, animals, and abundant life." },
+            { name: "Mars", image: "https://static.scientificamerican.com/sciam/cache/file/C454F5A6-536E-4C9F-AA6AF354BB85A85B_source.jpg?w=1200", info: "The Red Planet, the 4th planet from the Sun." },
+            { name: "Jupiter", image: "https://static.scientificamerican.com/sciam/cache/file/C454F5A6-536E-4C9F-AA6AF354BB85A85B_source.jpg?w=1200", info: "The largest planet in our Solar System." },
+            { name: "Saturn", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/640px-Saturn_during_Equinox.jpg", info: "Known for its stunning rings." },
+            { name: "Uranus", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt2rd4Y47qQhtc_4m7Do1PHv7N4LlzPdsnaQ&s", info: "An ice giant with a unique tilt." },
+            { name: "Neptune", image: "https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/p/i/a/0/PIA01492-1.jpg?w=2188&h=2185&fit=clip&crop=faces%2Cfocalpoint", info: "The farthest planet from the Sun." }
+        ];
+
+        function drawScore() {
+            ctx.fillStyle = "white";
+            ctx.font = "20px Arial";
+            ctx.fillText("Score: " + score, 10, 30);
+            ctx.fillText("Level: " + level, canvas.width - 100, 30);
+            ctx.fillText("High Score: " + highScore, canvas.width / 2 - 50, 30);
+        }
+
+        function shootBullet() {
+            let bullet = { x: spaceship.x, y: spaceship.y - spaceship.height / 2, width: 5, height: 10, speed: 7 };
+            bullets.push(bullet);
+        }
+
+        function drawBullets() {
+            ctx.fillStyle = "yellow";
+            bullets.forEach((bullet, index) => {
+                bullet.y -= bullet.speed;
+                ctx.fillRect(bullet.x - bullet.width / 2, bullet.y, bullet.width, bullet.height);
+                if (bullet.y < 0) bullets.splice(index, 1);
+            });
+        }
+
+        function generateAsteroids() {
+            if (Math.random() < 0.02 * level) {
+                let size = Math.random() * 30 + 20;
+                let asteroid = {
+                    x: Math.random() * (canvas.width - size),
+                    y: -size,
+                    width: size,
+                    height: size,
+                    speed: Math.random() * 3 + 1
+                };
+                asteroids.push(asteroid);
+            }
+        }
+
+        function drawAsteroids() {
+            ctx.fillStyle = "gray";
+            asteroids.forEach((asteroid, index) => {
+                asteroid.y += asteroid.speed;
+                ctx.beginPath();
+                ctx.arc(asteroid.x, asteroid.y, asteroid.width / 2, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+                if (asteroid.y > canvas.height) {
+                    asteroids.splice(index, 1);
+                }
+            });
+        }
+
+        function checkCollisions() {
+            bullets.forEach((bullet, bulletIndex) => {
+                asteroids.forEach((asteroid, asteroidIndex) => {
+                    let dist = Math.sqrt(Math.pow(bullet.x - asteroid.x, 2) + Math.pow(bullet.y - asteroid.y, 2));
+                    if (dist < (bullet.width / 2 + asteroid.width / 2)) {
+                        score += 10;
+                        asteroids.splice(asteroidIndex, 1);
+                        bullets.splice(bulletIndex, 1);
+                        if (score >= level * 100) {
+                            level++;
+                            planetIndex = (planetIndex + 1) % planets.length;
+                            showPlanetInfo();
+                        }
+                    }
+                });
+            });
+
+            asteroids.forEach((asteroid) => {
+                let dist = Math.sqrt(Math.pow(spaceship.x - asteroid.x, 2) + Math.pow(spaceship.y - asteroid.y, 2));
+                if (dist < (spaceship.width / 2 + asteroid.width / 2)) {
+                    gameOver = true;
+                    showGameOver();
+                }
+            });
+        }
+
+        function showPlanetInfo() {
+            const planet = planets[planetIndex];
+            document.getElementById("planetName").textContent = `Planet: ${planet.name}`;
+            document.getElementById("planetImage").src = planet.image;
+            document.getElementById("planetInfo").textContent = planet.info;
+            document.getElementById("info").style.display = "block";
+            setTimeout(() => document.getElementById("info").style.display = "none", 3000);
+        }
+
+        function showGameOver() {
+            if (score > highScore) {
+                highScore = score;
+            }
+            document.getElementById("finalScore").textContent = "Final Score: " + score;
+            document.getElementById("highScore").textContent = "High Score: " + highScore;
+            document.getElementById("gameOverMenu").style.display = "block";
+            gamePaused = true;
+        }
+
+        function update() {
+            if (gamePaused || gameOver) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawStars();
+            spaceship.update();
+            spaceship.draw();
+            drawBullets();
+            generateAsteroids();
+            drawAsteroids();
+            checkCollisions();
+            drawScore();
+            requestAnimationFrame(update);
+        }
+
+        function drawStars() {
+            for (let i = 0; i < 100; i++) {
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                ctx.fillStyle = "white";
+                ctx.fillRect(x, y, 2, 2);
+            }
+        }
+
+        function startGame() {
+            document.getElementById("startMenu").style.display = "none";
+            gamePaused = false;
+            gameOver = false;
+            score = 0;
+            level = 1;
+            planetIndex = 0;
+            bullets = [];
+            asteroids = [];
+            update();
+        }
+
+        function pauseGame() {
+            gamePaused = true;
+            document.getElementById("pauseMenu").style.display = "block";
+        }
+
+        function resumeGame() {
+            gamePaused = false;
+            document.getElementById("pauseMenu").style.display = "none";
+            update();
+        }
+
+        function restartGame() {
+            document.getElementById("gameOverMenu").style.display = "none";
+            startGame();
+        }
+
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !gamePaused && !gameOver) startGame();
+            if (e.key === "Escape" && !gameOver) pauseGame();
+        });
+
+        document.getElementById("startButton").addEventListener("click", startGame);
+        document.getElementById("resumeButton").addEventListener("click", resumeGame);
+        document.getElementById("restartButton").addEventListener("click", restartGame);
+
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") spaceship.dx = -spaceship.speed;
+            if (e.key === "ArrowRight") spaceship.dx = spaceship.speed;
+            if (e.key === "ArrowUp") spaceship.dy = -spaceship.speed;
+            if (e.key === "ArrowDown") spaceship.dy = spaceship.speed;
+            if (e.key === " ") shootBullet();
+        });
+
+        window.addEventListener("keyup", (e) => {
+            if (e.key === "ArrowLeft" || e.key === "ArrowRight") spaceship.dx = 0;
+            if (e.key === "ArrowUp" || e.key === "ArrowDown") spaceship.dy = 0;
+        });
+
+        document.getElementById("startMenu").style.display = "block";
+    </script>
+</body>
+</html>

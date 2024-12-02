@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team SIN X</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background-image: url('https://t4.ftcdn.net/jpg/08/01/62/95/360_F_801629573_n9zyVw9Po6FUyTHdRSdSNr02wc21gfsK.jpg');
+            /* Add your background image */
+            background-size: cover;
+            /* Ensures the image covers the entire background */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents the image from repeating */
+            background-attachment: fixed;
+            /* Keeps the background fixed during scrolling */
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .flex-item {
+            background-color: #333;
+            margin: 10px;
+            padding: 20px;
+            width: 30%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, background-color 0.2s;
+            border-radius: 10px;
+        }
+
+        .flex-item:hover {
+            transform: scale(1.05);
+            background-color: #444;
+        }
+        .img-cont{
+            width: 100%;
+            height: 450px;
+        }
+
+        .flex-item img {
+            width: 100%;
+            height: 100%;
+            /* height: auto; */
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .flex-item h2 {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .flex-item p {
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .prominent {
+            border: 2px solid #FFD700;
+            background-color: #444;
+        }
+
+        /* New styles for the navigation bar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .navbar button {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar button:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='planet.html'">Planet</button>
+        <button onclick="location.href='asteroids.html'">Asteroids</button>
+        <button onclick="location.href='team.html'">Team</button>
+        <button onclick="location.href='info.html'">Info</button>
+    </div>
+    <div class="content">
+        <h1>Team SIN X</h1>
+        <div class="flex-container">
+            <div class="flex-item prominent">
+                <div class="img-cont">
+
+                    <img src="SUFIYAN.jpeg" alt="Sufiyan Rajput">
+                </div>
+                <h2>Sufiyan Rajput</h2>
+                <p>Sufiyan Rajput is the mastermind behind this web application. He led the development team and ensured
+                    that the project was completed on time with high quality. SIN X was created by Sufiyan Rajput, a
+                    passionate developer with a keen interest in astronomy and interactive visualizations. This project
+                    showcases the combination of web technologies and scientific accuracy to create an engaging
+                    educational tool.</p>
+            </div>
+            <div class="flex-item">
+                <div class="img-cont">
+
+                    <img src="ISHAQ.jpeg" alt="Ishaq Asif">
+                </div>
+                <h2>Ishaq Asif</h2>
+                <p>Ishaq Asif utilized the data provided by NASA to integrate real-time information into the
+                    application. His expertise in data handling was crucial for the project's success.</p>
+            </div>
+            <div class="flex-item">
+                <div class="img-cont">
+
+                    <img src="NAVERA.jpeg" alt="Naveera Naeem">
+                </div>
+                <h2>Naveera Naeem</h2>
+                <p>Naveera Naeem played a significant role in the project by assisting in various development tasks and
+                    ensuring that the application met all the requirements.</p>
+            </div>
+            <div class="flex-item">
+                <div class="img-cont">
+
+                    <img src="NAZISH.jpeg" alt="Naveera Naeem">
+                </div>
+                <h2>Nazish Kiran</h2>
+                <p>Nazish Kiran played a significant role in the project by assisting in various development tasks and
+                    ensuring that the application met all the requirements. She has also helped in hosting the website.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planets</title>
+    <style>
+      body {
+        background-color: #121212;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar img {
+        height: 40px;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+        padding: 10px 15px;
+        border-radius: 20px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .navbar a:hover {
+        background-color: white;
+        color: black;
+      }
+
+      .container {
+        max-width: 80%;
+        margin: 100px auto 0; /* Adjusted margin to account for navbar */
+        padding: 20px;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .section h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 36px;
+        font-family: 'Courier New', Courier, monospace;
+        color: #ffcc00;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        position: relative;
+        animation: glow 1.5s infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00, 0 0 40px #ffcc00, 0 0 50px #ffcc00, 0 0 60px #ffcc00, 0 0 70px #ffcc00;
+        }
+        to {
+          text-shadow: 0 0 20px #ffcc00, 0 0 30px #ffcc00, 0 0 40px #ffcc00, 0 0 50px #ffcc00, 0 0 60px #ffcc00, 0 0 70px #ffcc00, 0 0 80px #ffcc00;
+        }
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        width: 100%;
+        height: 400px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s ease-in-out; /* Added easing for smoother transition */
+      }
+
+      .card:hover {
+        transform: rotateY(180deg);
+      }
+
+      .card img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+      }
+
+      .card .front,
+      .card .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 10px;
+      }
+
+      .card .back {
+        background-color: #333;
+        color: white;
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .card h3 {
+        margin: 10px 0;
+        font-weight: bold;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 24px;
+      }
+
+      .card p {
+        font-size: 14px;
+        max-width: 260px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <img src="https://thumbs.dreamstime.com/b/minimal-black-planet-logo-saturn-planet-icon-space-astronomy-design-saturn-planet-known-its-mesmerizing-rings-293608181.jpg" alt="Logo" />
+      <div></div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="planet.html">Planets</a>
+        <a href="asteroids.html">Asteroids</a>
+        <a href="team.html">Team</a>
+        <a href="info.html">Info</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="section">
+        <h2>Planets of the Solar System</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="front">
+              <img src="https://science.nasa.gov/wp-content/uploads/2023/11/mercury-messenger-globe-pia15162.jpg?w=4096&format=jpeg&crop=1" alt="Mercury" />
+              <h3>Mercury</h3>
+            </div>
+            <div class="back">
+              <h3>Mercury</h3>
+              <p>Mercury is the smallest planet in our solar system and closest to the Sun. It has a very thin atmosphere, which means it cannot retain heat. As a result, temperatures on Mercury can range from extremely hot to extremely cold. The planet has a rocky surface covered with craters.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://science.nasa.gov/wp-content/uploads/2023/05/venus-single.png?w=4096&format=png" alt="Venus" />
+              <h3>Venus</h3>
+            </div>
+            <div class="back">
+              <h3>Venus</h3>
+              <p>Venus is the second planet from the Sun and has a thick, toxic atmosphere composed mainly of carbon dioxide, with clouds of sulfuric acid. This atmosphere traps heat, making Venus the hottest planet in our solar system. Its surface is covered with volcanoes and deformed mountains.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Earth" />
+              <h3>Earth</h3>
+            </div>
+            <div class="back">
+              <h3>Earth</h3>
+              <p>Earth is the third planet from the Sun and the only known planet to support life. It has a diverse climate and geography, with vast oceans, mountains, forests, and deserts. Earth's atmosphere is composed of nitrogen, oxygen, and trace amounts of other gases, which support life.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png/435px-Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png" alt="Mars" />
+              <h3>Mars</h3>
+            </div>
+            <div class="back">
+              <h3>Mars</h3>
+              <p>Mars is the fourth planet from the Sun and is known as the Red Planet due to its reddish appearance, which is caused by iron oxide (rust) on its surface. Mars has the largest volcano in the solar system, Olympus Mons, and a canyon system, Valles Marineris, that dwarfs the Grand Canyon.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://images-assets.nasa.gov/image/hubble-captures-vivid-auroras-in-jupiters-atmosphere_28000029525_o/hubble-captures-vivid-auroras-in-jupiters-atmosphere_28000029525_o~large.jpg?w=1920&h=1913&fit=clip&crop=faces%2Cfocalpoint" alt="Jupiter" />
+              <h3>Jupiter</h3>
+            </div>
+            <div class="back">
+              <h3>Jupiter</h3>
+              <p>Jupiter is the largest planet in our solar system and has a Great Red Spot, which is a giant storm that has been raging for hundreds of years. Jupiter is a gas giant, primarily composed of hydrogen and helium, and has a strong magnetic field and dozens of moons, including the largest moon, Ganymede.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://cdn.mos.cms.futurecdn.net/TWpr5dTCno77m2J2aFgLxD-1200-80.jpg" alt="Saturn" />
+              <h3>Saturn</h3>
+            </div>
+            <div class="back">
+              <h3>Saturn</h3>
+              <p>Saturn is the sixth planet from the Sun and is known for its prominent ring system, which is made up of ice and rock particles. Saturn is a gas giant like Jupiter and has a similar composition. It has numerous moons, with Titan being the largest and having a thick atmosphere.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://science.nasa.gov/wp-content/uploads/2023/09/PIA01492-1.jpg?w=4096&format=jpeg" alt="Uranus" />
+              <h3>Uranus</h3>
+            </div>
+            <div class="back">
+              <h3>Uranus</h3>
+              <p>Uranus is the seventh planet from the Sun and has a unique sideways rotation, which means it rotates on its side. Uranus is an ice giant, with a composition that includes water, ammonia, and methane ices. It has a faint ring system and 27 known moons.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://images-assets.nasa.gov/image/PIA01492/PIA01492~large.jpg?w=1920&h=1917&fit=clip&crop=faces%2Cfocalpoint" alt="Neptune" />
+              <h3>Neptune</h3>
+            </div>
+            <div class="back">
+              <h3>Neptune</h3>
+              <p>Neptune is the eighth planet from the Sun and is known for its deep blue color, which is caused by methane in its atmosphere. Neptune is an ice giant like Uranus and has strong winds and storms, including the Great Dark Spot. It has 14 known moons, with Triton being the largest.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>Dwarf Planets of the Asteroid Belt</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="front">
+              <img src="https://smd-cms.nasa.gov/wp-content/uploads/2023/09/BIG_P_COLOR_2_TRUE_COLOR1_1980.jpg" alt="Pluto" />
+              <h3>Pluto</h3>
+            </div>
+            <div class="back">
+              <h3>Pluto</h3>
+              <p>Pluto is a dwarf planet in the Kuiper belt, known for its icy surface and heart-shaped glacier, Tombaugh Regio. Pluto has a thin atmosphere that expands when it comes closer to the Sun and collapses as it moves away. It has five known moons, with Charon being the largest.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9EmvsGEqJ1Ob1GoffqrpdZ8p1eA4Qal0exQ&s" alt="Haumea" />
+              <h3>Haumea</h3>
+            </div>
+            <div class="back">
+              <h3>Haumea</h3>
+              <p>Haumea is a dwarf planet located beyond Neptune, known for its elongated shape, which is thought to be caused by its rapid rotation. Haumea has a ring system and two known moons, Hi'iaka and Namaka. Its surface is covered with crystalline water ice.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSic9AFGvdm2ZrdlMuhiq0V9PxsvDMxntTE_g&s" alt="Makemake" />
+              <h3>Makemake</h3>
+            </div>
+            <div class="back">
+              <h3>Makemake</h3>
+              <p>Makemake is a dwarf planet in the Kuiper belt, known for its bright surface, which is covered with methane, ethane, and possibly nitrogen ices. Makemake has one known moon, MK 2, which was discovered in 2016. It has a very low temperature due to its distance from the Sun.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="front">
+              <img src="https://cdn.mos.cms.futurecdn.net/ufTfK2rbpQXZBjt2ZPsm57-1200-80.jpg" alt="Eris" />
+              <h3>Eris</h3>
+            </div>
+            <div class="back">
+              <h3>Eris</h3>
+              <p>Eris is a dwarf planet and one of the largest known objects in the solar system beyond Neptune. It is similar in size to Pluto and has a highly elliptical orbit. Eris has one known moon, Dysnomia, and its surface is believed to be covered with a layer of methane ice.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteroids</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background-color: #121212;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-radius: 5px; /* Added border radius */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        }
+        .navbar a:hover {
+            background-color: white; /* Change background to white on hover */
+            color: black; /* Change text color to black on hover */
+        }
+        .content {
+            padding: 20px;
+        }
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .flex-item {
+            background-color: #333;
+            margin: 10px;
+            padding: 20px;
+            width: 30%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 10px;
+        }
+        .flex-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .flex-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .flex-item h2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .flex-item p {
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="planet.html">Planets</a>
+        <a href="asteroids.html">Asteroids</a>
+        <a href="team.html">Team</a>
+        <a href="info.html">Info</a>
+    </div>
+    <div class="content">
+        <h1 style="text-align: center; margin-bottom: 40px;">Asteroids</h1>
+        <div class="flex-container">
+            <!-- Repeat this block for each asteroid -->
+            <div class="flex-item">
+                <img src="data:image/jpeg;base64,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" alt="4 VESTA">
+                <h2>VESTA</h2>
+                <p>Size: Vesta is one of the largest objects in the asteroid
+                    belt, with a diameter of about 525 kilometers.
+                    
+                    Composition: Vesta is classified as a rocky (V-type)
+                    asteroid, composed mainly of basaltic rock, similar to the
+                    Earth's crust, indicating volcanic activity in its past.
+                    
+                    Location: Vesta orbits the Sun in the asteroid belt
+                    between Mars and Jupiter, at an average distance of
+                    about 2.36 Astronomical Units.
+                    
+                    Surface Features: Vesta has a diverse surface, including
+                    deep craters, high mountains, and vast plains. The most
+                    notable feature is the Rheasilvia crater, which is about
+                    460 km wide and contains one of the tallest mountains in
+                    the solar system.
+                    
+                    NASA's Dawn Mission: Vesta was visited by NASA’s Dawn
+                    spacecraft in 2011–2012, providing detailed images and
+                    data about its surface and internal structure.
+                    
+                    Differentiation: Vesta is unique among asteroids because
+                    it is differentiated, meaning it has a layered structure
+                    similar to terrestrial planets, with a core, mantle, and
+                    crust..</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://images-assets.nasa.gov/image/PIA24471/PIA24471~orig.jpg?w=1080&h=1080&fit=clip&crop=faces%2Cfocalpoint" alt="Asteroid 2">
+                <h2>PSYCHE</h2>
+                <p>Composition: Psyche is believed to be largely metallic,
+                    primarily composed of nickel and iron, making it unique
+                    compared to other rocky or icy asteroids.
+                    Size: Psyche has a diameter of about 226 km (140 miles),
+                    making it one of the largest objects in the asteroid belt.
+                    Location: It resides in the asteroid belt between Mars and
+                    Jupiter, orbiting the Sun at a distance of about 370 to 510
+                    million km (2.5 to 3.3 Astronomical Units).
+                    Shape: Psyche is somewhat irregular in shape, not perfectly
+                    spherical, which is typical for large asteroids.
+                    Surface: Its surface is thought to be metallic, with potential
+                    for silicate rock, and possibly cratered, indicating a history
+                    of impacts.
+                    </p>
+            </div>
+            <div class="flex-item">
+                <img src="https://smd-cms.nasa.gov/wp-content/uploads/2023/09/PIA00135.jpg" alt="Asteroid 3">
+                <h2>IDA</h2>
+                <p>Size: Ida is about 31.4 km long and 14.2 km wide, making it a
+                    relatively large asteroid in the asteroid belt.
+                    Shape: Ida has an irregular, elongated shape, with a heavily
+                    cratered surface, indicating a history of impacts.
+                    Composition: Ida is classified as an S-type (stony) asteroid,
+                    primarily composed of silicate minerals and nickel-iron.
+                    Location: It resides in the asteroid belt between Mars and
+                    Jupiter, orbiting the Sun at an average distance of 429
+                    million km (2.87 Astronomical Units).
+                    Dactyl (Moon): Ida has a small moon named Dactyl, which is
+                    about 1.4 km in diameter, discovered in 1993 by the Galileo
+                    spacecraft, making Ida one of the first asteroids known to
+                    have a moon.
+                    Rotation: Ida rotates once every 4.63 hours, relatively fast
+                    compared to some other asteroids</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2018/06/asteroid_ryugu/17569768-1-eng-GB/Asteroid_Ryugu_pillars.jpg" alt="Asteroid 4">
+                <h2>RYUGU</h2>
+                <p>Shape: Ryugu has a distinct diamond-like shape, with a
+                    bulging equator due to its rapid rotation.
+                    Size: It has a diameter of about 900 meters, making it a
+                    relatively small asteroid.
+                    Composition: Ryugu is classified as a C-type
+                    (carbonaceous) asteroid, which means it is rich in
+                    carbon-based materials, including organic compounds
+                    and water-containing minerals.
+                    Location: Ryugu orbits the Sun in a near-Earth orbit, with
+                    a distance ranging from 0.96 to 1.41 Astronomical Units,
+                    placing it closer to Earth than the asteroid belt.
+                    Surface: Its surface is rough and covered with large
+                    boulders, with evidence of both darker and lighter
+                    regions indicating different materials.
+                    Hayabusa2 Mission: Japan's Hayabusa2 spacecraft
+                    visited Ryugu in 2018, collected samples from its surface,
+                    and successfully returned them to Earth in 2020, offering
+                    a detailed study of its composition and history..</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://science.nasa.gov/wp-content/uploads/2017/11/itokawa-banner-1920x640-1.jpg?w=1920" alt="Asteroid 5">
+                <h2>ITOKAWA</h2>
+                <p>Shape: Itokawa has an elongated, peanut-like shape,
+                    measuring approximately 535 meters in length and 210
+                    meters in width.
+                    Size: Itokawa is a small asteroid, with a size of around
+                    300-500 meters, making it one of the smaller near-Earth
+                    asteroids studied in detail.
+                    Composition: Itokawa is classified as an S-type (stony)
+                    asteroid, composed mainly of silicate rock and some
+                    metals, such as nickel and iron.
+                    Surface: Itokawa’s surface is a mix of smooth areas and
+                    rough, boulder-strewn regions, lacking visible craters,
+                    which suggests it might be a rubble-pile asteroid made of
+                    loosely held debris.
+                    Location: Itokawa is a near-Earth asteroid, orbiting the
+                    Sun with a distance ranging from 0.95 to 1.7 Astronomical
+                    Units.
+                    Hayabusa Mission: Japan’s Hayabusa spacecraft visited
+                    Itokawa in 2005, collected surface samples, and returned
+                    them to Earth in 2010. It was the first mission to bring
+                    back samples from an asteroid..</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://science.nasa.gov/wp-content/uploads/2023/07/Dimorphos-1.jpeg?w=800" alt="Asteroid 6">
+                <h2>DIDYMOS</h2>
+                <p>Size: Didymos itself is about 780 meters in diameter,
+                    making it a relatively small asteroid.
+                    Binary System: Didymos is part of a binary asteroid
+                    system, meaning it has a smaller companion asteroid
+                    (moon) called Dimorphos, which is about 160 meters in
+                    diameter.
+                    Composition: Didymos is an S-type (stony) asteroid,
+                    primarily composed of silicate rocks and metals like
+                    nickel and iron.
+                    Location: Didymos orbits the Sun in a near-Earth orbit,
+                    with a distance ranging from 1.0 to 2.27 Astronomical
+                    Units.
+                    Rotation: Didymos rotates once every 2.26 hours, while
+                    its moon, Dimorphos, orbits it every 11.9 hours.
+                    DART Mission: NASA’s DART (Double Asteroid
+                    Redirection Test) mission successfully impacted
+                    Dimorphos in 2022, marking the first test of planetary
+                    defense by altering the orbit of an asteroid
+                    .</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://www.jhuapl.edu/sites/default/files/2023-11/20231102-Dinkinesh-LLORI.jpg" alt="Asteroid 7">
+                <h2>DONALDJOHANSON</h2>
+                <p>Size: Donaldjohanson is relatively small, with a diameter
+                    of about 4 kilometers.
+                    Location: It orbits the Sun in the main asteroid belt
+                    between Mars and Jupiter, at an average distance of
+                    about 2.7 Astronomical Units.
+                    Composition: Donaldjohanson is classified as a C-type
+                    asteroid, meaning it is carbonaceous and contains a large
+                    amount of carbon and possibly water-bearing minerals.
+                    Named After: The asteroid is named after Donald
+                    Johanson, the American paleoanthropologist who
+                    discovered the famous fossil of the early hominid Lucy in
+                    1974.
+                    Lucy Mission Target: This asteroid is the first target of
+                    NASA's Lucy mission. Lucy will visit Donaldjohanson in
+                    2025 during its journey to study Jupiter's Trojan
+                    asteroids.
+                    Orbital Period: Donaldjohanson takes about 4.12 years to
+                    complete one orbit around the Sun.</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://science.nasa.gov/wp-content/uploads/2023/07/Mathilde1_main.jpg?w=768" alt="Asteroid 8">
+                <h2>MATHILDE</h2>
+                <p>Size: Mathilde is a large asteroid with a diameter of
+                    approximately 50 km.
+                    Composition: It is classified as a C-type (carbonaceous)
+                    asteroid, which means it is rich in carbon and has a very
+                    dark surface.
+                    Location: Mathilde orbits the Sun in the asteroid belt
+                    between Mars and Jupiter, at a distance ranging from 2.1
+                    to 3.3 Astronomical Units.
+                    Density: Mathilde has a low density, suggesting it is likely
+                    a rubble-pile asteroid—a loosely bound collection of
+                    rocks and dust rather than a solid object.
+                    Surface Features: Mathilde has a heavily cratered
+                    surface, with some of its craters being as large as 10
+                    kilometers deep. This indicates it has experienced many
+                    impacts over time.
+                    Visited by Spacecraft: Mathilde was visited visited by the
+                    NEAR Shoemaker spacecraft in 1997, making it one of the
+                    few asteroids to be closely observed by a probe.</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Rosetta_triumphs_at_asteroid_Lutetia.jpg/1200px-Rosetta_triumphs_at_asteroid_Lutetia.jpg" alt="Asteroid 9">
+                <h2>LUTETIA</h2>
+                <p>Size: Lutetia is about 100 kilometers in diameter, making
+                    it a relatively large asteroid in the asteroid belt.
+                    1.
+                    Composition: It is classified as an M-type asteroid,
+                    meaning it may have a metallic composition, including
+                    nickel and iron, but it also shows characteristics of a
+                    carbon-rich surface.
+                    2.
+                    Location: Lutetia orbits the Sun in the main asteroid belt
+                    between Mars and Jupiter, at an average distance of
+                    about 2.4 Astronomical Units.
+                    3.
+                    Surface: The surface of Lutetia is heavily cratered,
+                    indicating it has been impacted many times, with some
+                    craters over 45 km wide. It also has grooves and ridges.
+                    4.
+                    ESA's Rosetta Mission: Lutetia was visited by the Rosetta
+                    spacecraft in 2010 during its journey to comet
+                    67P/Churyumov-Gerasimenko. This flyby provided
+                    detailed images and data about the asteroid’s surface
+                    and structure.
+                    5.
+                    Age: Lutetia is believed to be an ancient object, possibly
+                    dating back to the early solar system, around 3.6 billion
+                    years old, making it a remnant from the time when
+                    planets were forming.</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/51e5fbd261f9421af9989a62869f0b84.jpg" alt="Asteroid 10">
+                <h2>APOPHIS</h2>
+                <p>Size: Apophis is approximately 370 meters in diameter,
+                    making it a relatively large near-Earth asteroid.
+                    1.
+                    Composition: Apophis is classified as an S-type (stony)
+                    asteroid, meaning it is composed mainly of silicate
+                    minerals and nickel-iron.
+                    2.
+                    Location: Apophis orbits the Sun in a near-Earth orbit,
+                    with its distance from the Sun ranging from 0.9 to 1.3
+                    Astronomical Units.
+                    3.
+                    Orbital Period: It takes about 323 days for Apophis to
+                    complete one orbit around the Sun.
+                    4.
+                    Close Approaches: Apophis gained significant attention
+                    due to its close approaches to Earth. In 2029, it will pass
+                    within approximately 31,000 kilometers of Earth's
+                    surface, closer than some geostationary satellites.
+                    5.
+                    Future Observations: After its close approach in 2029,
+                    Apophis will be observed closely to improve predictions
+                    of its future orbits. It will make another close approach in
+                    2036, though current predictions suggest it will not
+                    impact Earth.</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://cdn.sci.news/images/enlarge10/image_11107_1e-Polymele.jpg" alt="Asteroid 11">
+                <h2>POLYMELE</h2>
+                <p>Size: Polymele has a diameter of approximately 23
+                    kilometers, making it a relatively small asteroid.
+                    Composition: Polymele is classified as a C-type
+                    (carbonaceous) asteroid, indicating that it is rich in
+                    carbon-based materials and may contain significant
+                    amounts of water-bearing minerals.
+                    Location: Polymele orbits the Sun in the main asteroid
+                    belt between Mars and Jupiter, with a semi-major axis of
+                    about 2.5 Astronomical Units.
+                    Shape: It has an irregular shape, typical of many
+                    asteroids, and is not spherical.
+                    Surface Features: Its surface is relatively dark, consistent
+                    with the carbon-rich nature of C-type asteroids.
+                    Observations: Polymele has been observed by various
+                    telescopes and space missions, but detailed information
+                    about its surface features and composition is limited
+                    compared to larger, more studied asteroids.</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://science.nasa.gov/wp-content/uploads/2023/07/Eros_main.jpg?w=768" alt="Asteroid 12">
+                <h2>EROS</h2>
+                <p>Size: Eros is about 33.7 kilometers long and 13.0 kilometers
+                    wide, making it one of the larger near-Earth asteroids.
+                    Composition: Eros is classified as an S-type (stony) asteroid,
+                    meaning it is primarily composed of silicate minerals and
+                    metals like nickel and iron.
+                    Location: Eros orbits the Sun in a near-Earth orbit, with a
+                    distance ranging from 0.8 to 1.8 Astronomical Units.
+                    Shape: Eros has an irregular, elongated shape with a surface
+                    covered in craters, boulders, and grooves, reflecting its
+                    history of impacts.
+                    NASA's NEAR Shoemaker Mission: Eros was visited by
+                    NASA’s NEAR Shoemaker spacecraft, which orbited the
+                    asteroid from February 2000 to February 2001 and landed
+                    on its surface in February 2001.
+                    Rotation: Eros rotates on its axis approximately every 5.27
+                    hours.</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://planetary.s3.amazonaws.com/web/assets/pictures/annefrank_stardust_best_stryk.png" alt="Asteroid 13">
+                <h2>ANNEFRANK</h2>
+                <p>Size: Annefrank has a diameter of approximately 32
+                    kilometers, making it a medium-sized asteroid in the
+                    asteroid belt.
+                    Composition: It is classified as an S-type (stony) asteroid,
+                    which means it is composed mainly of silicate minerals
+                    and metals like nickel and iron.
+                    Location: Annefrank orbits the Sun in the main asteroid
+                    belt between Mars and Jupiter, with an average distance
+                    of about 2.5 Astronomical Units from the Sun.
+                    Shape: Annefrank has an irregular, somewhat elongated
+                    shape, typical of many asteroids in the belt.
+                    Naming: The asteroid is named after Anne Frank, the
+                    Jewish diarist who wrote "The Diary of a Young Girl"
+                    while hiding from the Nazis during World War II. The
+                    name was chosen to honor her memory.
+                    Rotation: The rotational period of Annefrank is
+                    approximately 7.2 hours.</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpjMksiCDFda5uiC3mBH3uyk9uTbwuZ5kp5w&s" alt="Asteroid 14">
+                <h2>BRAILLE</h2>
+                <p>Size: Braille has a diameter of approximately 7.4
+                    kilometers, making it a relatively small asteroid.
+                    Composition: It is classified as an S-type (stony) asteroid,
+                    which indicates that it is composed mainly of silicate
+                    minerals and metals like nickel and iron.
+                    Location: Braille orbits the Sun in the main asteroid belt
+                    between Mars and Jupiter, at an average distance of
+                    about 2.4 Astronomical Units.
+                    Shape: Braille has an irregular shape, typical of many
+                    small asteroids, and its surface features have been
+                    observed to be rough and cratered.
+                    Naming: The asteroid is named after Louis Braille, the
+                    inventor of the Braille writing system, which allows
+                    visually impaired individuals to read and write. The name
+                    honors his contributions to accessibility and education.
+                    Rotation: The rotational period of Braille is
+                    approximately 6.5 hours.</p>
+            </div>
+            <div class="flex-item">
+                <img src="https://science.nasa.gov/wp-content/uploads/2017/11/ceres-full-globe-pia21906-1920x640-1.jpg?w=1920" alt="Asteroid 15">
+                <h2>CERES</h2>
+                <p>Size: Ceres is the largest object in the asteroid belt, with a
+                    diameter of about 940 kilometers.
+                    Composition: Ceres is classified as a dwarf planet due to
+                    its size and spherical shape. It has a mixed composition
+                    of rock and ice, with significant amounts of water ice and
+                    possibly a subsurface ocean.
+                    Location: Ceres orbits the Sun in the main asteroid belt
+                    between Mars and Jupiter, at an average distance of
+                    about 2.77 Astronomical Units.
+                    Surface Features: Ceres has a diverse surface with bright
+                    spots, particularly in the Occator Crater, which are
+                    thought to be deposits of sodium carbonate. It also has a
+                    large, dome-shaped mountain called Ahuna Mons.
+                    NASA's Dawn Mission: Ceres was visited by NASA's Dawn
+                    spacecraft, which orbited Ceres from 2015 to 2018,
+                    providing detailed images and data about its surface and
+                    composition.
+                    Atmosphere: Ceres has a very thin atmosphere, known as
+                    an exosphere, composed of water vapor and other trace
+                    gases.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA - SIN X</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background-color: #121212;
+            overflow: hidden;
+        }
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .nav-center a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 25px;
+        }
+        .nav-center a:hover {
+            background-color: white;
+            color: black;
+        }
+        .logo {
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: 1;
+        }
+        .center-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            width: 90%;
+            max-width: 600px;
+        }
+        .center-content h1 {
+            font-size: 6em;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 60px;
+        }
+        .center-content button {
+            background-color: transparent;
+            color: white;
+            border: 2px solid black;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+        .center-content button:hover {
+            background-color: black;
+            color: white;
+            transform: scale(1.1);
+        }
+        .center-content p.project-details {
+            font-size: 1.2em;
+            margin-top: 30px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        /* Media query for tablets */
+        @media (max-width: 1024px) {
+            .center-content h1 {
+                font-size: 4em;
+            }
+            .center-content button {
+                padding: 12px 24px;
+                font-size: 1.1em;
+            }
+            .center-content p.project-details {
+                font-size: 1.1em;
+            }
+        }
+
+        /* Media query for phones (up to 600px) */
+        @media (max-width: 600px) {
+            .nav-center {
+                flex-direction: column;
+                padding: 10px 5px;
+            }
+            .nav-center a {
+                padding: 8px;
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 0.9em;
+                margin-bottom: 5px;
+            }
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+                justify-content: center;
+            }
+            .logo img {
+                height: 30px;
+            }
+            .logo span {
+                font-size: 1.2em;
+            }
+            .center-content {
+                top: 60%;
+            }
+            .center-content h1 {
+                font-size: 2.5em;
+            }
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            .center-content button {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+            .center-content p.project-details {
+                font-size: 0.9em;
+                padding: 0 10px;
+                margin-top: 15px;
+            }
+            .video-background {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-background">
+        <source src="https://motionbgs.com/media/1040/astronaut-walking-on-the-moon.960x540.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="nav-center">
+        <div class="logo">
+            <img src="https://thumbs.dreamstime.com/b/minimal-black-planet-logo-saturn-planet-icon-space-astronomy-design-saturn-planet-known-its-mesmerizing-rings-293608181.jpg" alt="SIN X Logo">
+            <span>SIN X</span>
+        </div>
+        <a href="index.html">Home</a>
+        <a href="planet.html">Planets</a>
+        <a href="asteroids.html">Asteroids</a>
+        <a href="team.html">Team</a>
+        <a href="info.html">Info</a>
+    </div>
+    <div class="center-content">
+        <h1>SIN X</h1>
+        <div class="button-container">
+            <button onclick="location.href='Sin X.html'">Explore Space</button>
+            <button onclick="location.href='vss.html'">Eyes on Asteroids</button>
+            <button onclick="location.href='game.html'">Cosmic Arcade</button> <!-- New button added -->
+        </div>
+        <p class="project-details">
+            SIN X is a project dedicated to exploring the wonders of space. Our mission is to provide comprehensive information about planets, asteroids, and other celestial bodies. Join us on this journey to uncover the mysteries of the universe.
+        </p>
+    </div>
+    <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cm1t2j1q30gv0svbk45c621ps"></script>
+</body>
+</html>

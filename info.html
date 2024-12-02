@@ -1,0 +1,165 @@
+<!-- c:\Users\me\Desktop\nsa\info.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIN ✘ - Solar System Visualization</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://www.worldofwallpaper.com/media/Space_cover.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        #navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: bold;
+        }
+        #navbar a:hover {
+            background-color: white;
+            color: black;
+        }
+        .container {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #9b59b6;
+        }
+        .section p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section ul li {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 40px;
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <a href="index.html">Home</a>
+        <a href="planet.html">Planets</a>
+        <a href="asteroids.html">Asteroids</a>
+        <a href="team.html">Team</a>
+        <a href="info.html">Info</a>
+    </div>
+
+    <div class="container">
+        <img src="https://thumbs.dreamstime.com/b/minimal-black-planet-logo-saturn-planet-icon-space-astronomy-design-saturn-planet-known-its-mesmerizing-rings-293608181.jpg" alt="SIN ✘ Logo" class="logo">
+
+        <div id="home" class="section">
+            <h2>Welcome to SIN ✘ - Solar System Visualization</h2>
+            <p>SIN ✘ is an interactive 3D visualization of our solar system. This project aims to provide an engaging and educational experience for users to explore the planets, their orbits, and learn about the cosmic bodies in our solar neighborhood.</p>
+        </div>
+
+        <div id="planets" class="section">
+            <h2>Planets</h2>
+            <p>Explore the planets in our solar system, each with detailed information and realistic textures.</p>
+            <ul>
+                <li>Accurate representation of planet sizes and orbits</li>
+                <li>Interactive zoom and rotation controls</li>
+                <li>Detailed information about each planet</li>
+                <li>Realistic textures and asteroid belt visualization</li>
+            </ul>
+        </div>
+
+        <div id="asteroids" class="section">
+            <h2>Asteroids</h2>
+            <p>Learn about various asteroids in our solar system, including their orbits and characteristics.</p>
+            <ul>
+                <li>Accurate representation of asteroid sizes and orbits</li>
+                <li>Interactive zoom and rotation controls</li>
+                <li>Detailed information about each asteroid</li>
+            </ul>
+        </div>
+
+        <div id="team" class="section">
+            <h2>Team</h2>
+            <p>SIN ✘ was created by Sufiyan Rajput, a passionate developer with a keen interest in astronomy and interactive visualizations. This project showcases the combination of web technologies and scientific accuracy to create an engaging educational tool.</p>
+        </div>
+
+        <div id="info" class="section">
+            <h2>Project Info</h2>
+            <p>This project is designed for astronomy enthusiasts, students, and anyone interested in learning more about our solar system. It serves as an educational tool that combines scientific accuracy with interactive web technologies to create an immersive learning experience.</p>
+            
+            <h3>Purpose:</h3>
+            <p>The code serves as an interactive viewer for asteroids, allowing users to explore various asteroids in a 3D environment. Users can click on asteroids to view detailed information about them.</p>
+            
+            <h3>Key Features:</h3>
+            <ul>
+                <li>3D Rendering: Utilizes Three.js to create a 3D scene with asteroids and a starfield.</li>
+                <li>Asteroid Data: Contains an array of asteroid objects with properties like name, diameter, image, and description.</li>
+                <li>User Interaction: Users can click on asteroids to display detailed information, including an image and description.</li>
+                <li>Responsive Design: Adjusts the view when the window is resized.</li>
+            </ul>
+            
+            <h3>Target Audience:</h3>
+            <p>This application is likely aimed at educational purposes, astronomy enthusiasts, or anyone interested in learning about asteroids in an engaging way.</p>
+            
+            <h3>Detailed Functionality:</h3>
+            <ul>
+                <li>Initialization: Sets up the 3D scene, camera, renderer, and controls.</li>
+                <li>Asteroid Creation: Generates 3D models of asteroids based on predefined data and positions them in the scene.</li>
+                <li>Starfield Creation: Creates a background of stars to enhance the visual experience.</li>
+                <li>Event Handling: Listens for user clicks to determine if an asteroid has been selected and displays its details.</li>
+                <li>Responsive Design: Adjusts the camera and renderer when the browser window is resized.</li>
+                <li>Animation Loop: Continuously updates the scene for smooth rendering and user interaction.</li>
+            </ul>
+            
+            <h3>Key Features:</h3>
+            <ul>
+                <li>Accurate representation of planet sizes and orbits</li>
+                <li>Interactive zoom and rotation controls</li>
+                <li>Detailed information about each planet</li>
+                <li>Realistic textures and asteroid belt visualization</li>
+                <li>Educational tool for astronomy enthusiasts and students</li>
+            </ul>
+            <h3>Technologies Used:</h3>
+            <ul>
+                <li>HTML/CSS: For structuring and styling the web page</li>
+                <li>JavaScript: For adding interactivity and handling user inputs</li>
+                <li>Three.js: A JavaScript library used to create and display animated 3D graphics in a web browser</li>
+                <li>WebGL: A JavaScript API for rendering interactive 3D graphics within any compatible web browser</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
